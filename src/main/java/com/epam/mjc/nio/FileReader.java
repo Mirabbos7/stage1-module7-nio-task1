@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.logging.Logger;
 
 
 public class FileReader {
+    private static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
+
     public static void main(String[] args) {
         FileReader fileReader = new FileReader();
         Profile profile = fileReader.getDataFromFile(new File("src/main/resources/Profile.txt"));
@@ -19,10 +22,12 @@ public class FileReader {
             FileChannel inChanel = randomAccessFile.getChannel();
             {
                 ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                StringBuilder data = new StringBuilder();
                 while (inChanel.read(byteBuffer) > 0) {
                     byteBuffer.flip();
                     for (int i = 0; i < byteBuffer.limit(); i++) {
-                        System.out.print((char) byteBuffer.get());
+                        data.append((char) byteBuffer.get());
+                        LOGGER.info(data.toString());
                     }
                     byteBuffer.clear();
                 }
