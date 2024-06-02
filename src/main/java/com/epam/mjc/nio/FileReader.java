@@ -13,7 +13,7 @@ public class FileReader {
     public static void main(String[] args) {
         FileReader fileReader = new FileReader();
         Profile profile = fileReader.getDataFromFile(new File("src/main/resources/Profile.txt"));
-        System.out.println(profile);
+        logger.info(profile);
     }
 
     public Profile getDataFromFile(File file) {
